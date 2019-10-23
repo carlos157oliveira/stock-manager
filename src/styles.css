@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+.mt {
+  margin-top: 20px;
+}
+.mb {
+  margin-bottom: 20px;
+}
+.mr {
+  margin-right: 20px;
+}
+.ml {
+  margin-left: 20px;
+}
+
+.card-header-icon {
+  cursor: default !important;
+}
+
+input[type="text"], textarea, form {
+  max-width: 350px !important;
+}
+
+input[type=number] {
+  max-width: 150px;
+}

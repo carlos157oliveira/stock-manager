@@ -1,0 +1,64 @@
+<label class="label has-text-centered">Movimentar Item do Estoque</label>
+
+<form [formGroup]="form" *ngIf="(item$ | async) as item" (submit)="exchange()">
+
+  <div class="card mt mb">
+    <header class="card-header">
+      <p class="card-header-title">
+        {{ item.name }}
+      </p>
+      <div class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </span>
+      </div>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        Quantidade em Estoque: {{ item.quantity }}
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Quantidade&nbsp;a&nbsp;ser&nbsp;movimentada:</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <p class="control">
+          <input class="input" formControlName="quantity" type="number" placeholder="qtde">
+        </p>
+      </div>
+    </div>
+  </div>
+  <sm-feedback-msg *ngIf="form.get('quantity').errors?.required">
+    Você deve definir uma quantidade!
+  </sm-feedback-msg>
+  <sm-feedback-msg *ngIf="form.get('quantity').errors?.min">
+    A quantidade deve ser maior que uma unidade!
+  </sm-feedback-msg>
+  <sm-feedback-msg *ngIf="form.get('quantity').errors?.insufficientQuantity">
+    Não há essa quantidade no estoque!
+  </sm-feedback-msg>
+
+  <div class="field mt">
+    <div class="control">
+      <label class="radio">
+        <input type="radio" formControlName="subtract" [value]="true">
+        Retirar
+      </label>
+      <label class="radio">
+        <input type="radio" formControlName="subtract" [value]="false">
+        Adicionar
+      </label>
+    </div>
+  </div>
+
+  <div class="field mt">
+    <div class="control">
+      <button [disabled]="form.invalid" class="button is-link" type="submit">Movimentar</button>
+    </div>
+  </div>
+
+</form>

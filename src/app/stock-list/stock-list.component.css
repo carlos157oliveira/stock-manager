@@ -1,0 +1,8 @@
+.low-quantity  {
+  background-color: rgb(255, 56, 96) !important;
+  color: white;
+}
+
+.low-quantity .fa {
+  color: darkblue;
+}

@@ -1,0 +1,118 @@
+<div class="columns">
+
+  <div class="column">
+    <form [formGroup]="form">
+      <label class="label">Nome</label>
+      <div class="control">
+        <input formControlName="name"
+        class="input"
+        type="text"
+        placeholder="nome do item">
+      </div>
+      <label class="label">Categoria</label>
+      <div class="select">
+        <select formControlName="categoryId">
+          <option [value]="''">Todas</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <br>
+      <label class="checkbox mt">
+        Baixa Quantidade
+        <input type="checkbox" formControlName="onlyLowQuantity">
+      </label>
+      <br>
+      <button type="reset" class="button is-link mt" (click)="resetar()">Resetar</button>
+    </form>
+  </div>
+
+  <div class="column">
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th>Nome do Item</th>
+          <th>Qtde.</th>
+          <th>Categoria</th>
+          <th>Data da Última<br>Movimentação</th>
+          <th>Qtde. de Alerta</th>
+          <th>Movimentar</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itens"
+          [ngClass]="{'low-quantity': item.alertQuantity != null && item.quantity <= item.alertQuantity }">
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ getCategory(item.categoryId).name }}</td>
+          <td>{{ item.lastExchangeDate | date: 'HH:mm dd/MM/yyyy' }}</td>
+          <td>{{ item.alertQuantity }}</td>
+          <td class="has-text-centered">
+            <a [routerLink]="['/estoque', 'movimentar', item.id]">
+              <i class="fa fa-exchange"></i>
+            </a>
+          </td>
+          <td class="has-text-centered">
+            <a [routerLink]="['/estoque', 'editar', item.id]">
+              <i class="fa fa-pencil-square-o bg-white"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+      <ul class="pagination-list">
+        <li *ngFor="let page of getArrayOfSize(totalPageNumber); index as i; first as first">
+          <a class="pagination-link"
+            [ngClass]="{'is-current': isCurrentPage(i+1)}"
+            (click)="changePage(i+1)">
+            {{ i+1 }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Total de Tipos de Itens
+        </p>
+        <div class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fa fa-list" aria-hidden="true"></i>
+          </span>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          {{ totalItemType }} itens <u>distintos</u> já foram registrados.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Quantidade Total de Itens
+        </p>
+        <div class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fa fa-archive" aria-hidden="true"></i>
+          </span>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          {{ totalItens }} {{ totalItens == 1 ? 'item' : 'itens' }} estão presentes no estoque (quantidade absoluta).
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

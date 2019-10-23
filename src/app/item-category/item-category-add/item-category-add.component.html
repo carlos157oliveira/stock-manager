@@ -1,0 +1,41 @@
+<form [formGroup]="form" (submit)="submit()">
+  <div class="field">
+
+    <label class="label">Categoria</label>
+
+    <div class="control has-icons-right">
+      <input formControlName="name"
+      class="input"
+      [ngClass]="controlClass('name')"
+      type="text"
+      placeholder="nova categoria">
+      <span class="icon is-small is-right" *ngIf="!anyError('name')">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('name', 'required')">
+      A categoria deve ter um nome!
+    </sm-feedback-msg>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('name', 'categoryNotAvailable')">
+      A categoria não está disponível!
+    </sm-feedback-msg>
+  </div>
+
+  <div class="field">
+
+    <label class="label">Descrição</label>
+
+    <div class="control">
+      <textarea formControlName="description"
+      class="textarea"
+      placeholder="descrição"></textarea>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button [disabled]="form.invalid || form.pending" class="button is-link" type="submit">Registrar</button>
+      <button [disabled]="!editMode" class="button is-danger is-pulled-right" [ngClass]="{'is-invisible': !editMode}" type="button" (click)="delete()">Deletar</button>
+    </div>
+  </div>
+</form>

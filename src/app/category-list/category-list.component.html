@@ -1,0 +1,66 @@
+<div class="columns">
+
+  <div class="column">
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th>Descrição</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of (categories$ | async)">
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+          <td class="has-text-centered">
+            <a [routerLink]="['/categorias', 'editar', category.id]">
+              <i class="fa fa-pencil-square-o"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Total de Categorias Cadastradas
+        </p>
+        <div class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fa fa-list" aria-hidden="true"></i>
+          </span>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          {{ totalCategories}} categorias já foram registradas.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Dica de Uso
+        </p>
+        <div class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </span>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          Use categorias para agregar seus itens do estoque, permitindo visualizá-los em conjunto melhor depois.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

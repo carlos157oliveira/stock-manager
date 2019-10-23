@@ -1,0 +1,77 @@
+<form [formGroup]="form" (submit)="submit()">
+  <label class="label has-text-centered">Item do Estoque</label>
+  <div class="field">
+    <label class="label">Nome</label>
+    <div class="control has-icons-right">
+      <input formControlName="name"
+      class="input"
+      [ngClass]="controlClass('name')"
+      type="text"
+      placeholder="nome do item">
+      <span class="icon is-small is-right" *ngIf="!anyError('name')">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('name', 'required')">
+      O item deve ter um nome!
+    </sm-feedback-msg>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('name', 'itemNameNotAvailable')">
+      O nome não está disponível!
+    </sm-feedback-msg>
+  </div>
+  <div class="field">
+    <label class="label">Quantidade no Estoque</label>
+    <div class="control has-icons-right">
+      <input formControlName="quantity"
+      class="input"
+      [ngClass]="controlClass('quantity')"
+      type="number"
+      placeholder="qtde">
+      <span class="icon is-small is-right" *ngIf="!anyError('quantity')">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('quantity', 'required')">
+      A quantidade inicial deve ser fornecida!
+    </sm-feedback-msg>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('quantity', 'min')">
+      O valor deve ser positivo!
+    </sm-feedback-msg>
+  </div>
+  <div class="field">
+    <label class="label">Quantidade de Alerta</label>
+    <div class="control has-icons-right">
+      <input formControlName="alertQuantity"
+      class="input"
+      [ngClass]="controlClass('alertQuantity')"
+      type="number"
+      placeholder="qtde">
+      <span class="icon is-small is-right" *ngIf="!anyError('alertQuantity')">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('alertQuantity', 'min')">
+      O valor deve ser positivo!
+    </sm-feedback-msg>
+  </div>
+  <div class="field">
+    <label class="label">Categoria</label>
+    <div class="control">
+      <div class="select is-rounded" [ngClass]="controlClass('categoryId')">
+        <select formControlName="categoryId">
+          <option *ngFor="let category of (categories$ | async)" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+    </div>
+    <sm-feedback-msg *ngIf="showFeedbackMsg('categoryId', 'required')">
+      Escolha uma categoria!
+    </sm-feedback-msg>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button [disabled]="form.invalid || form.pending" class="button is-link" type="submit">Registrar</button>
+      <button [disabled]="!editMode" class="button is-danger is-pulled-right" [ngClass]="{'is-invisible': !editMode}" type="button" (click)="delete()">Deletar</button>
+    </div>
+  </div>
+</form>

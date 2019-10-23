@@ -1,0 +1,36 @@
+<nav class="navbar is-link is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" (click)="toggleMenu()">
+      <i class="fa fa-bars mr"></i>
+      <sm-logo></sm-logo>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        {{ currentSectionTitle$ | async }}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div [ngClass]="{ 'active-menu': isShown }">
+  <div class="menu-bar">
+    <i class="fa fa-window-close is-pulled-right" tabindex="0" (keyup.space)="toggleMenu()" (click)="toggleMenu()"></i>
+    <ul>
+      <li *ngFor="let route of routes">
+        <a [routerLink]="route.value"
+          (click)="changeSectionTitle(route)">
+          {{ route.label }}
+        </a>
+      </li>
+      <li>
+        <hr style="background-color: black;">
+      </li>
+      <li>
+        <span class="has-text-grey-dark">{{ currentSectionTitle$ | async }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="overlay" (click)="toggleMenu()"></div>
+</div>
