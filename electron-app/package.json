@@ -1,0 +1,16 @@
+{
+  "name": "stock-manager",
+  "version": "1.0.0",
+  "description": "Versão do stock-manager para desktop usando electron.",
+  "main": "main.js",
+  "productName": "Stock Manager",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.11"
+  }
+}
